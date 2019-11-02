@@ -2,15 +2,20 @@
 
 # INSTALLATION
 
+Easiest way is to create a new Anaconda environment and install all necesary dependencies.
+If prefer not using Anaconda, just install all dependencies using plain `pip`, the _Package Installer for Python_.
+
+## ANACONDA 
+
 `conda create -n mimo python=3.7 numpy`
 
 `conda activate mimo`
 
 
 # FILES
-`detection.py`      - Principal detection module
+`detection.py`      - Principal detection module.
 
-`remove_comments`   - Script to remove comments from files
+`remove_comments`   - Script to remove comments from files.
 
 # USAGE
 

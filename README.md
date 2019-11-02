@@ -1,25 +1,33 @@
 # 16-QAM-Detection-MIMO
 
-# INSTALLATION
+
+
+## DEPENDENCIES
+
+`Python 3.7.5`
+`Numpy 1.17.2`
+`logging 0.5.1.2`
+
+## INSTALLATION
 
 Easiest way is to create a new Anaconda environment and install all necesary dependencies.
 If prefer not using Anaconda, just install all dependencies using plain `pip`, the _Package Installer for Python_.
 
-## ANACONDA 
+### ANACONDA 
 
 `conda create -n mimo python=3.7 numpy`
 
 `conda activate mimo`
 
 
-# FILES
+## FILES
 `detection.py`      - Principal detection module.
 
 `remove_comments`   - Script to remove comments from files.
 
-# USAGE
+## USAGE
 
-## REMOVE COMMENTS
+### REMOVE COMMENTS
 As the repository being a mere illustration of MIMO detection, it is full of comments to help grasp all the information.
 
 In order to remove comments from files, just run the script `remove_comments.py`. By default is set to remove comments from `detection.py`, creating a new file called `detection_no_comments.py`.
@@ -34,10 +42,10 @@ remove_comments('detection.py', 'detection_no_comments.py')
 
 * Change `detection_no_comments.py` to your output-No-comments-file that will be generated.
 
-# TODO
+## TODO
 * Create object detector to choose between different detectors implemented.
 
-# REFERENCES
+## REFERENCES
 **[1]** _Semidefinite Relaxation for Detection of 16-QAM Signaling in MIMO Channels_ -- -- A. Wiesel ; Y.C. Eldar ; S. Shamai
 
 

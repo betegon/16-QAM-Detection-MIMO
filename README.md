@@ -15,7 +15,7 @@
 # USAGE
 
 ## REMOVE COMMENTS
-As the repository being a mere illustration of MIMO detection, it is full of comments to help you grasp all the information.
+As the repository being a mere illustration of MIMO detection, it is full of comments to help grasp all the information.
 
 In order to remove comments from files, just run the script `remove_comments.py`. By default is set to remove comments from `detection.py`, creating a new file called `detection_no_comments.py`.
 

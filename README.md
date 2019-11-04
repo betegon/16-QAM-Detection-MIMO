@@ -5,7 +5,9 @@
 ## DEPENDENCIES
 
 `Python 3.7.5`
+
 `Numpy 1.17.2`
+
 `logging 0.5.1.2`
 
 ## INSTALLATION
@@ -16,6 +18,10 @@ If prefer not using Anaconda, just install all dependencies using plain `pip`, t
 ### ANACONDA 
 
 `conda create -n mimo python=3.7 numpy`
+
+Install `streamlit` using pip, as it wont be available from anaconda current channels (nov/2019).
+
+`pip install streamlit`
 
 `conda activate mimo`
 
@@ -43,10 +49,13 @@ remove_comments('detection.py', 'detection_no_comments.py')
 * Change `detection_no_comments.py` to your output-No-comments-file that will be generated.
 
 ## TODO
+* Check all dependencies finally used (plt??)
+* Set parameters in Streamlit
 * Create object detector to choose between different detectors implemented.
 
 ## REFERENCES
 **[1]** _Semidefinite Relaxation for Detection of 16-QAM Signaling in MIMO Channels_ -- -- A. Wiesel ; Y.C. Eldar ; S. Shamai
+**[2]** [Streamlit](https://streamlit.io/)
 
 
 

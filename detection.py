@@ -16,6 +16,18 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 #### #### #### [END logger handler] #### #### ####  
 
+
+# Parameter definition
+M = 16          # Size of signal constellation
+k = np.log2(M)  # Number of bits per symbol
+n = 3000        # Numer of bits to proceess
+numSamplesPerSymbol = 1    # Oversampling factor
+logger.info("Parameter definition: \n   M = {}\n   k = {}\n   n = {}\n   numSamplesPerSymbol= {}\n".format(M, k, n, numSamplesPerSymbol))
+
+# Create binary data stream
+binaryDataStream = np.random.randint(2,n)
+logger.debug("binary DataStream:\n{}".format(binaryDataStream))
+
 # Symbols transmitted
 x = np.array([[1, 1]]).T
 logger.debug("Symbols transsmited:\n{}".format(x))

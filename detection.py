@@ -1,3 +1,5 @@
+# TODO: Changin value in the slider changes all bit stream generated. (set a seed)
+
 import logging
 import numpy as np  
 import streamlit as st
@@ -24,9 +26,12 @@ M = 16              # Size of signal constellation
 k = int(np.log2(M)) # Number of bits per symbol
 nbits = 3000        # Numer of bits to proceess
 numSamplesPerSymbol = 1    # Oversampling factor
-EbNo = 10           # arbitrarily set to 10 dB
 logger.info("Parameter definition: \n   M = {}\n   k = {}\n   n = {}\n   numSamplesPerSymbol= {}\n"
             .format(M, k, nbits, numSamplesPerSymbol))
+
+# Set seed for debugging
+if st.checkbox('Set seed for debugging.'): np.random.seed(1)
+
 
 # Create binary data stream
 binaryDataStream = np.random.randint(2, size=(int(nbits/k),k))
@@ -43,8 +48,8 @@ st.bar_chart(hist_values)
 
 st.subheader('Adding White Gaussian Noise')
 
-
-
+EbNo = st.slider('Ratio of bit energy to noise power spectral density, Eb/N0:',0,30,10,1)           # arbitrarily set to 10 dB
+st.write(EbNo)
 
 x = np.array([[1, 1]]).T
 logger.debug("Symbols transsmited:\n{}".format(x))

@@ -58,5 +58,7 @@ remove_comments('detection.py', 'detection_no_comments.py')
 
 **[2]** [Streamlit](https://streamlit.io/)
 
+**[3]** [Mathworks - Compute BER for a QAM system with AWGN](https://www.mathworks.com/help/comm/gs/compute-ber-for-a-qam-system-with-awgn-using-matlab.html
+)
 
 

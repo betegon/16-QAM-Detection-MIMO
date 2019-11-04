@@ -49,6 +49,7 @@ remove_comments('detection.py', 'detection_no_comments.py')
 * Change `detection_no_comments.py` to your output-No-comments-file that will be generated.
 
 ## TODO
+* Add code license
 * Set parameters in Streamlit (M, k, n, ...).
 * Check all dependencies finally used (plt??).
 * Create a new `detection.py` file removing `streamlit` code.

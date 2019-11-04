@@ -49,9 +49,10 @@ remove_comments('detection.py', 'detection_no_comments.py')
 * Change `detection_no_comments.py` to your output-No-comments-file that will be generated.
 
 ## TODO
-* Check all dependencies finally used (plt??)
-* Set parameters in Streamlit
-* Create object detector to choose between different detectors implemented.
+* Set parameters in Streamlit (M, k, n, ...).
+* Check all dependencies finally used (plt??).
+* Create a new `detection.py` file removing `streamlit` code.
+* Create an object `Detector` to choose between different detectors implemented.
 
 ## REFERENCES
 **[1]** _Semidefinite Relaxation for Detection of 16-QAM Signaling in MIMO Channels_ -- -- A. Wiesel ; Y.C. Eldar ; S. Shamai

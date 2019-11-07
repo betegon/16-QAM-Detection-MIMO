@@ -1,3 +1,6 @@
+# TODO: Set the limits of X and Y axis, depending modulation
+# TODO: Set colors. Black for base colors (baseline) and other colors for predictions
+
 import streamlit as st
 import pandas as pd
 import numpy as np 

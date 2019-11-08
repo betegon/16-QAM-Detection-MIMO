@@ -1,4 +1,4 @@
-# TODO: Set the limits of X and Y axis, depending modulation
+# TODO: Set the limits of X and Y axis, depending on the modulation selected.
 # TODO: Set colors. Black for base colors (baseline) and other colors for predictions
 
 import streamlit as st
@@ -27,9 +27,10 @@ class Modulation:
         color_points = (0,1,0)
         area = np.pi*3
 
-        axes = plt.gca()
-        axes.set_xlim([-10, 10])
-        axes.set_ylim([-10, 10])
+        # set the limits of the constellation axes
+        axes = plt.gca() # gca = get current axes
+        axes.set_xlim([ -(self.k + round(self.k*0.1)), self.k + round(self.k*0.1) ])
+        axes.set_ylim([ -(self.k + round(self.k*0.1)), self.k + round(self.k*0.1) ])
 
         # Plot
         plt.scatter(data[:,0],data[:,1], s=area, c=color_base, alpha=0.5)

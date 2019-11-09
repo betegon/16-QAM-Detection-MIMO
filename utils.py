@@ -22,6 +22,4 @@ def awgn(signal,snr, seed=False):
     noisepower=sigpower/(math.pow(10,snr/10))
     noise=math.sqrt(noisepower)*(np.random.uniform(-1,1,size=len(signal)))
     return noise
-
-# noise = awgn(list([-1, 1]))
-# print (noise)
+    

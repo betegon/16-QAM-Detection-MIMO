@@ -1,10 +1,10 @@
 # TODO: Create a left menu and add all variables as: Amplitud (for constellation representation, Eb/N0,...)
 
-import logging
 from modulation import Modulation
-import numpy as np  
-import streamlit as st
 from utils import awgn, mapping
+import logging
+import numpy as np
+import streamlit as st
 st.title('MIMO Detection')
 
 #### #### #### [START logger handler] #### #### #### 

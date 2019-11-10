@@ -1,10 +1,8 @@
 #TODO: Docstrings
-#TODO: add plt to readme dependencies
-import streamlit as st
-import numpy as np 
-import math
-import matplotlib.pyplot as plt
 from utils import awgn
+import matplotlib.pyplot as plt
+import numpy as np
+import streamlit as st
 
 
 class Modulation:

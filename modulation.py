@@ -1,6 +1,4 @@
-# TODO: Set the limits of X and Y axis, depending on the modulation selected.
-# TODO: Set colors. Black for base colors (baseline) and other colors for predictions
-# TODO: set the received points (array of points for drawing the constellation)
+#TODO: Docstrings
 import streamlit as st
 import pandas as pd
 import numpy as np 
@@ -27,30 +25,31 @@ class Modulation:
                         [3,-3],[3, -1], [3, 1], [3, 3], ])
 
         # Create data
-        N = len(base_constellation_points)
-        area = np.pi*7
-        color_base = (0,1,0)
-        # colors = np.random.rand(N)
-        color_points = (0,1,0)
+        baseline_area = np.pi*9
+        baseline_color = 'black'
         
-
+        # if signal argument is given, plot it before baseline signal,
+        # So baseline points are over the signal ones, as points of
+        # reference.
+        if signal.any():
+            signal_area = np.pi*3
+            signal_color = (0,1,0)
+            plt.scatter(signal[:,0],
+                signal[:,1],
+                s=signal_area, 
+                c=signal_color,
+                alpha=0.5,
+                label= 'Signal')
+    
         # To add other points than the base ones, just copy next line and change the input.
         plt.scatter(base_constellation_points[:,0],
-                    base_constellation_points[:,1],
-                    s=area, 
-                    c='black',
-                    alpha=0.5,
-                    marker='*',
-                    label= 'Baseline')
+            base_constellation_points[:,1],
+            s=baseline_area, 
+            c=baseline_color,
+            alpha=0.5,
+            marker='*',
+            label= 'Baseline')
       
-        if signal.any():
-            plt.scatter(signal[:,0],
-                    signal[:,1],
-                    s=area, 
-                    c=color_points,
-                    alpha=0.5,
-                    label= 'Signal')
-        
         # set the limits of the constellation axes
         axes = plt.gca() # gca = get current axes
         axes_limit = self.k + round(self.k*0.2)
@@ -65,23 +64,3 @@ class Modulation:
         st.pyplot()
         # without using streamlit:
         # plt.show()
-
-if __name__ == "__main__":
-
-    M = 16 
-    snr = 16
-    qam = Modulation(M)
-
-
-    base_constellation_points = np.array([[-3,-3],[-3, -1], [-3, 1], [-3, 3],
-                        [-1,-3],[-1, -1], [-1, 1], [-1, 3],
-                        [1,-3],[1, -1], [1, 1], [1, 3],
-                        [3,-3],[3, -1], [3, 1], [3, 3], ])
-
-    noise_x = awgn(base_constellation_points[:,0].tolist(),snr)
-    noise_y = awgn(base_constellation_points[:,1].tolist(),snr)
-    noise = np.column_stack((noise_x,noise_y))
-    signal = base_constellation_points + noise
-    print(signal)
-
-    qam.plot_constellation(signal)

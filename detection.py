@@ -43,7 +43,6 @@ st.subheader('Binary data Stream')
 st.write(binaryDataStream)
 decDataStream = binaryDataStream.dot(1 << np.arange(binaryDataStream.shape[-1] -1, -1,-1))
 
-
 # PLot decimal Symbols transmitted (x)
 st.subheader('# integer symbols transmitted')
 hist_values = np.histogram(decDataStream, bins=M, range=(0,M))[0]
@@ -62,18 +61,18 @@ snr = EbNo + 10*np.log10(k) - 10*np.log10(numSamplesPerSymbol)
 st.write("Signal-to-noise ratio achieved: ",snr)
 
 # QAM modulation
-qam = Modulation(M)
-# Mapping 
+qam16 = Modulation(M)
+# Mapping to 16 qam
 input_signal = mapping(decDataStream)
-st.write(input_signal)
+st.write("Input signal", input_signal)
 
 noise_x = awgn(input_signal[:,0].tolist(),snr)
 noise_y = awgn(input_signal[:,1].tolist(),snr)
-noise = np.column_stack((noise_x,noise_y))
+noise   = np.column_stack((noise_x,noise_y))
 signal_and_noise = input_signal + noise
-print(signal_and_noise)
+st.write("Input signal + noise: ",signal_and_noise)
 
-qam.plot_constellation(signal_and_noise)
+qam16.plot_constellation(signal_and_noise)
 
 
 

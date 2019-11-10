@@ -10,6 +10,8 @@
 
 `logging 0.5.1.2`
 
+`matplotlib 3.1.1`
+
 ## INSTALLATION
 
 Easiest way is to create a new Anaconda environment and install all necesary dependencies.
@@ -17,7 +19,7 @@ If prefer not using Anaconda, just install all dependencies using plain `pip`, t
 
 ### ANACONDA 
 
-`conda create -n mimo python=3.7 numpy`
+`conda create -n mimo python=3.7 matplotlib numpy`
 
 Install `streamlit` using pip, as it wont be available from anaconda current channels (nov/2019).
 

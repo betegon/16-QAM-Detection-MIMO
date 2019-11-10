@@ -21,7 +21,7 @@ If prefer not using Anaconda, just install all dependencies using plain `pip`, t
 
 `conda create -n mimo python=3.7 matplotlib numpy`
 
-Install `streamlit` using pip, as it wont be available from anaconda current channels (nov/2019).
+Install `streamlit` using pip, as it won't be available from anaconda current channels (nov/2019).
 
 `pip install streamlit`
 

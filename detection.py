@@ -1,8 +1,10 @@
-# TODO: Changin value in the slider changes all bit stream generated. (set a seed)
+# TODO: Create a left menu and add all variables as: Amplitud (for constellation representation, Eb/N0,...)
 
 import logging
+from modulation import Modulation
 import numpy as np  
 import streamlit as st
+from utils import awgn, mapping
 st.title('MIMO Detection')
 
 #### #### #### [START logger handler] #### #### #### 
@@ -24,7 +26,7 @@ logger.addHandler(ch)
 # Parameter definition
 M = 16              # Size of signal constellation
 k = int(np.log2(M)) # Number of bits per symbol
-nbits = 3000        # Numer of bits to process
+nbits = 50000        # Numer of bits to process
 numSamplesPerSymbol = 1    # Oversampling factor
 logger.info("Parameter definition: \n   M = {}\n   k = {}\n   n = {}\n   numSamplesPerSymbol= {}\n"
             .format(M, k, nbits, numSamplesPerSymbol))
@@ -53,10 +55,28 @@ st.bar_chart(hist_values)
 st.subheader('Adding White Gaussian Noise')
 
 # Set EbNo
-EbNo = st.slider('Ratio of bit energy to noise power spectral density, Eb/N0:',0,30,10,1)           # arbitrarily set to 10 dB
+# arbitrarily set the slider in 10 dB 
+EbNo = st.slider('Ratio of bit energy to noise power spectral density, Eb/N0:',0,30,10,1)          
 # Calculate signal-to-noise ratio
 snr = EbNo + 10*np.log10(k) - 10*np.log10(numSamplesPerSymbol)
 st.write("Signal-to-noise ratio achieved: ",snr)
+
+# QAM modulation
+qam = Modulation(M)
+# Mapping 
+input_signal = mapping(decDataStream)
+st.write(input_signal)
+
+noise_x = awgn(input_signal[:,0].tolist(),snr)
+noise_y = awgn(input_signal[:,1].tolist(),snr)
+noise = np.column_stack((noise_x,noise_y))
+signal_and_noise = input_signal + noise
+print(signal_and_noise)
+
+qam.plot_constellation(signal_and_noise)
+
+
+
 #### #### #### [END AWGN] #### #### #### 
 
 

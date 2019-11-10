@@ -1,6 +1,6 @@
+import math
 import matplotlib as plt
 import numpy as np
-import math
 
 
 def awgn(signal,snr, seed=False):
@@ -17,11 +17,11 @@ def awgn(signal,snr, seed=False):
 
     """
     if seed: np.random.seed(1)
-    sigpower=sum([math.pow(abs(signal[i]),2) for i in range(len(signal))])
-    sigpower=sigpower/len(signal)
-    noisepower=sigpower/(math.pow(10,snr/10))
-    # noise=math.sqrt(noisepower)*(np.random.uniform(-1,1,size=len(signal)))
-    noise=np.random.normal(0, np.sqrt(noisepower), len(signal))
+    sigpower = sum([ math.pow(abs(signal[i]),2) for i in range(len(signal)) ])
+    sigpower = sigpower / len(signal)
+    noisepower = sigpower / (math.pow(10,snr/10))
+    # noise = math.sqrt(noisepower)*(np.random.uniform(-1,1,size=len(signal)))
+    noise = np.random.normal(0, np.sqrt(noisepower), len(signal))
     return noise
 
 

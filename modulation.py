@@ -74,8 +74,11 @@ class Modulation:
         plt.title('{}-QAM  Constellation'.format(self.M))
         plt.xlabel('x')
         plt.ylabel('y')
+        #set grid to visualize when a symbol is out of its cell.
+        plt.grid(color='black', linestyle='-', linewidth=1)
         axes.legend()
 
         st.pyplot()
         # without using streamlit:
         # plt.show()
+st

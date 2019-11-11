@@ -1,4 +1,6 @@
 #TODO: Docstrings
+#TODO: Different colors for each symbol 
+
 from utils import awgn
 import matplotlib.pyplot as plt
 import numpy as np
@@ -32,6 +34,19 @@ class Modulation:
         if signal.any():
             signal_area = np.pi*3
             signal_color = (0,1,0)
+    
+            '''
+            for x,y in base_constellation_points:
+                if x == -3 and y == -3:
+                    plt.scatter(x,
+                    y,
+                    s=baseline_area, 
+                    c=(1,0,0),
+                    alpha=0.5,
+                    marker='*',
+                    label= 'Baseline')  
+            '''
+
             plt.scatter(signal[:,0],
                 signal[:,1],
                 s=signal_area, 
@@ -39,6 +54,8 @@ class Modulation:
                 alpha=0.5,
                 label= 'Signal')
     
+
+
         # To add other points than the base ones, just copy next line and change the input.
         plt.scatter(base_constellation_points[:,0],
             base_constellation_points[:,1],

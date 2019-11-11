@@ -38,16 +38,24 @@ if st.checkbox('Set seed for debugging.'): np.random.seed(1)
 # Create binary data stream
 binaryDataStream = np.random.randint(2, size=(int(nbits/k),k))
 logger.debug("binary DataStream:\n{}".format(binaryDataStream))
-
 st.subheader('Binary data Stream')
 st.write(binaryDataStream)
+# Calculate decimal data stream from binary data stream
 decDataStream = binaryDataStream.dot(1 << np.arange(binaryDataStream.shape[-1] -1, -1,-1))
+st.subheader('Decimal data Stream')
+st.write(decDataStream)
 
-# PLot decimal Symbols transmitted (x)
+# Plot decimal Symbols transmitted (x)
 st.subheader('# integer symbols transmitted')
 hist_values = np.histogram(decDataStream, bins=M, range=(0,M))[0]
 st.bar_chart(hist_values)   
 #### #### #### [END symbols transmitted, x] #### #### #### 
+
+# QAM modulation
+qam16 = Modulation(M)
+# Mapping to 16 qam
+input_signal = mapping(decDataStream)
+st.write("Input signal", input_signal)
 
 
 #### #### #### [START AWGN] #### #### #### 
@@ -60,11 +68,6 @@ EbNo = st.slider('Ratio of bit energy to noise power spectral density, Eb/N0:',0
 snr = EbNo + 10*np.log10(k) - 10*np.log10(numSamplesPerSymbol)
 st.write("Signal-to-noise ratio achieved: ",snr)
 
-# QAM modulation
-qam16 = Modulation(M)
-# Mapping to 16 qam
-input_signal = mapping(decDataStream)
-st.write("Input signal", input_signal)
 
 noise_x = awgn(input_signal[:,0].tolist(),snr)
 noise_y = awgn(input_signal[:,1].tolist(),snr)
@@ -73,15 +76,7 @@ signal_and_noise = input_signal + noise
 st.write("Input signal + noise: ",signal_and_noise)
 
 qam16.plot_constellation(signal_and_noise)
-
-
-
 #### #### #### [END AWGN] #### #### #### 
-
-
-
-
-
 
 
 
@@ -101,3 +96,5 @@ logger.debug("Noise samples:\n{}".format(n))
 y = h.dot(x) + n
 logger.debug("Symbols received:\n{}".format(y))
 #### #### #### [END MIMO 2x2 System] #### #### #### 
+
+

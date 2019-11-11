@@ -32,7 +32,7 @@ class Modulation:
         # So baseline points are over the signal ones, as points of
         # reference.
         if signal.any():
-            signal_area = np.pi*3
+            signal_area = np.pi*1
             signal_color = (0,1,0)
     
             '''

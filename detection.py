@@ -1,4 +1,5 @@
 # TODO: Create a left menu and add all variables as: Amplitud (for constellation representation, Eb/N0,...)
+# TODO: Smooth BER/SNR plots (smooth level in a slider)
 
 from modulation import Modulation
 from utils import awgn, mapping

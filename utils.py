@@ -1,5 +1,3 @@
-# TODO: Docstring mapping()
-
 import math
 import matplotlib as plt
 import numpy as np
@@ -25,8 +23,17 @@ def awgn(signal,snr, seed=False):
     noise = np.random.normal(0, np.sqrt(noisepower), len(signal))
     return np.array([noise]).T
 
-def mapping (decimal_stream):
 
+def mapping (decimal_stream):
+    """ Mapping decimal numbers to 16-QAM constellation signal.
+
+    Args:
+        decimal_stream  (np.array): Decimal numbers to map. 
+
+    Returns:
+        input_signal (np.array): Signal to transmit.
+
+    """
     map = {
      "0": [-3,-3],  "1": [-3,-1],  "2": [-3, 3],  "3": [-3, 1],
      "4": [-1,-3],  "5": [-1,-1],  "6": [-1, 3],  "7": [-1, 1],

@@ -5,7 +5,7 @@ import matplotlib as plt
 import numpy as np
 
 
-def awgn(signal,snr, seed=False):
+def awgn(signal, snr, seed=False):
     """ Generate Aditive White Gaussian Noise (AWGN) from an input signal.
 
     Args:

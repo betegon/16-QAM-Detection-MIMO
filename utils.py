@@ -1,3 +1,5 @@
+# TODO: mapping() to handle multidimensional np.arrays
+
 import math
 import matplotlib as plt
 import numpy as np

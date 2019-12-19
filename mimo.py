@@ -18,7 +18,7 @@ import cvxpy as cp
 '''
 
 # %%
-k = 5 # 2 antennas
+k = 2 # 2 antennas
 
 # %%
 # select a random sample without replacement

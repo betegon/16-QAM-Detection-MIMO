@@ -1,3 +1,12 @@
+# TODO: 1. conseguir qeu funcione randomsimb() o crearla de otra forma. mirar mi codigo viejo de detection.py donde genero streams aleatorios igual es mejor usar eso para generar la ostia y hacer el bucle
+# TODO: 2. Asegurarme de que funciona bien hasta aquí
+# TODO: 3. Pensar que meter y que no en el bucle
+# TODO: 4. Pensar como hacer los bucles (invertidos para poder continuar training cuando queramos)
+# TODO: 5. Pensar como ir guardando los resultados en un fichero
+# TODO: 6. Mover las funciones a utils o a donde corresponda.
+
+
+
 # %%
 '''
 <a href="https://colab.research.google.com/github/betegon/16-QAM-Detection-MIMO/blob/master/TAC_MIMO.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>

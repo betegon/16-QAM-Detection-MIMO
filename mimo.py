@@ -2,23 +2,28 @@
 # TODO: 4. Pensar como hacer los bucles (invertidos para poder continuar training cuando queramos)
 # TODO: 5. Pensar como ir guardando los resultados en un fichero
 # TODO: 6. Mover las funciones a utils o a donde corresponda.
-# TODO: 7. Refactor loops for maps and zips.(idiomatic pythonic code ;) 
-
-from utils import awgn, gen_symbols, mapping, nearestPD, quantiz
-from optimization import min_tr_WA
-# %%
+# TODO: 7. Refactor loops for maps and zips.(idiomatic pythonic code ;)
+import cvxpy as cp
 import math
 import numpy as np
-import cvxpy as cp
 
-from modulation import Modulation
+from optimization import min_tr_WA
+from utils import awgn, gen_symbols, mapping, nearestPD, quantiz
 
 
 M = 16 # 16-QAM
 n = int(np.log2(M)) # Number of bits per symbol
-k = 2 # 2 antennas
+k = 3 # 2 antennas
+nbits = 3*k*n # number of bits. minimum k*n
+symbols = gen_symbols(nbits,n)
+print("Total symbols\n",symbols)
+print("\n")
+print("SYMBOLS QUE COGE",)
+print(symbols[0:2,:])
+print("\n")
 
-s = gen_symbols(40,n)
+
+s = gen_symbols(nbits,n)
 print("S",s)
 a = np.expand_dims(s[:k,0],-1)
 b = np.expand_dims(s[:k,1],-1)
@@ -27,18 +32,11 @@ print(b.shape)
 # s = np.expand_dims(np.stack((s[:,0].transpose,s[:,1].transpose)),-1)
 s = np.concatenate((a,b))
 print("s ya movida",s.shape)
-
-# s_matrix = np.array([[1, 1],[1, 1]])
-# print(s_matrix)
-# s = (np.array([s_matrix.flatten('F')])).transpose()
-# randomsimb()
 print("s\n",s)
 t = s**2
 print(t)
 
-
 # GENERATE CHANNEL MATRIX
-
 # H is CN(0,1)
 mu = np.zeros(2*k)
 sigma = np.ones((k,k*2))
@@ -57,7 +55,7 @@ print("Matriz H expandida\n",H_expanded)
 # y = H*s+w;
 mu = np.zeros(k)
 sigma = np.ones((k,k))
-snr = 12
+snr = 10
 
 noise = awgn(s,snr)
 # noise = np.random.normal(loc=mu, scale=sigma, size=(k,k)).view(np.complex128)
@@ -71,20 +69,7 @@ print("\ns\n",s)
 print("\nnoise \n", noise)
 print("\ny\n",y)
 
-# %%
-## CALCULO DE W (variable a minimizar)
-# w = np.concatenate((s,t,[[1]]))
-# w_transpose = w.transpose()
-# print("w\n",w)
-# print("w_transpose\n",w_transpose)
-
-# W = w.dot(w_transpose)
-# print("\nBig W\n",W)
-# print("\nBig W\n",W.shape)
-
-
-# %%
-# Cálculo de la matriz a multiplicar por H
+# Calculate A, used for min(tr(W*A))
 A11 = H_expanded.T.dot(H_expanded) # Check if it is really doing the transpose of H_expanded
 A12 = np.zeros((2*k,2*k))
 A13 = -H_expanded.T.dot(y) # Check if it is really doing the transpose of H_expanded
@@ -108,10 +93,6 @@ A = np.concatenate((A1X,A2X,A3X))
 print("\n Matriz A")
 print("\n",A)
 print("\n",A.shape)
-
-# A = [H'*H zeros(2*N,2*N) -H'*y; zeros(2*N,4*N+1); -y'*H zeros(1,2*N) y'*y];
-
-
 
 W = min_tr_WA(k,A)
 W11=W[0:2*k,0:2*k]
@@ -159,8 +140,6 @@ print("\n")
 simb=[-3,-1, 1 ,3]
 eigen_descomposition = quantiz(eigen_trans,simb)
 
-
-
 try:
     v= np.linalg.cholesky(W_ED)
     print("Es positiva")
@@ -195,5 +174,8 @@ print("Valor randomization \n",randomization)
 if np.array_equal(s,simple_quantiz) and np.array_equal(s, eigen_descomposition) and np.array_equal(s,randomization):
     print("all good")
 else:
+    print("simple quatiz bad: ", np.sum(s != simple_quantiz))
+    print("Eigen descomposition bad: ",np.sum(s != eigen_descomposition))
+    print("Randomization bad: ",np.sum(s != randomization))
     print("no good")
 # %%

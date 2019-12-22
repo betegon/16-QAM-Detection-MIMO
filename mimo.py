@@ -1,4 +1,3 @@
-# TODO: 0. Docstrings of min_tr_W
 # TODO: 1. conseguir qeu funcione randomsimb() o crearla de otra forma. mirar mi codigo viejo de detection.py donde genero streams aleatorios igual es mejor usar eso para generar la ostia y hacer el bucle
 # TODO: 2. Asegurarme de que funciona bien hasta aquí
 # TODO: 3. Pensar que meter y que no en el bucle
@@ -138,10 +137,10 @@ def min_tr_WA(k,A):
 
     Args:
         k  (int): Number of antennas.
-        A  (np.array): Matrix needed to formulate problem to minimize.
+        A  (np.ndarray): Matrix needed to formulate problem to minimize.
 
     Returns:
-        W (np.array): Optimal W matrix.
+        W (np.ndarray): Optimal W matrix.
 
     """
     # Problem data.
@@ -163,8 +162,8 @@ def min_tr_WA(k,A):
     prob.solve()
 
     # print("Optimal value", prob.solve())
-    print("Optimal value of W: ")
-    print(W.value) # A numpy ndarray.
+    # print("Optimal value of W: ")
+    # print(W.value) # A numpy ndarray.
     return W.value
 
 W = min_tr_WA(k,A)

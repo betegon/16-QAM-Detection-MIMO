@@ -5,7 +5,7 @@
 # TODO: 4. Pensar como hacer los bucles (invertidos para poder continuar training cuando queramos)
 # TODO: 5. Pensar como ir guardando los resultados en un fichero
 # TODO: 6. Mover las funciones a utils o a donde corresponda.
-
+# TODO: 7. Docstring quantiz()
 
 
 # %%
@@ -132,8 +132,18 @@ print("\n",A.shape)
 # A = [H'*H zeros(2*N,2*N) -H'*y; zeros(2*N,4*N+1); -y'*H zeros(1,2*N) y'*y];
 
 
-def min_tr_W(k,A):
+def min_tr_WA(k,A):
+    """ Minizime trace(W*A), equations stated in paper "Semidefinite Relaxation
+        for Detection of 16-QAM Signaling in MIMO Channels".
 
+    Args:
+        k  (int): Number of antennas.
+        A  (np.array): Matrix needed to formulate problem to minimize.
+
+    Returns:
+        W (np.array): Optimal W matrix.
+
+    """
     # Problem data.
     np.random.seed(1)
     #k = 2 # number of antennas (TX y RX)
@@ -157,7 +167,7 @@ def min_tr_W(k,A):
     print(W.value) # A numpy ndarray.
     return W.value
 
-W = min_tr_W(k,A)
+W = min_tr_WA(k,A)
 W11=W[0:2*k,0:2*k]
 print("Esto es W11:",W11)
 print("\n")

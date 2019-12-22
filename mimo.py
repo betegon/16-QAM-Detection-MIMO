@@ -1,51 +1,33 @@
-# TODO: 1. conseguir qeu funcione randomsimb() o crearla de otra forma. mirar mi codigo viejo de detection.py donde genero streams aleatorios igual es mejor usar eso para generar la ostia y hacer el bucle
-# TODO: 2. Asegurarme de que funciona bien hasta aquí
+# TODO: 7. Docstring quantiz()
 # TODO: 3. Pensar que meter y que no en el bucle
 # TODO: 4. Pensar como hacer los bucles (invertidos para poder continuar training cuando queramos)
 # TODO: 5. Pensar como ir guardando los resultados en un fichero
 # TODO: 6. Mover las funciones a utils o a donde corresponda.
-# TODO: 7. Docstring quantiz()
 
 
-# %%
-'''
-<a href="https://colab.research.google.com/github/betegon/16-QAM-Detection-MIMO/blob/master/TAC_MIMO.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
-'''
-
-from utils import awgn
+from utils import awgn, mapping, gen_symbols, quantiz
 from optimization import min_tr_WA
 # %%
 import math
 import numpy as np
 import cvxpy as cp
 
+from modulation import Modulation
 
-# %%
-'''
-## EJEMPLO CON 2 antenas
 
-'''
-
-# %%
+M = 16 # 16-QAM
+n = int(np.log2(M)) # Number of bits per symbol
 k = 2 # 2 antennas
 
-# %%
-# select a random sample without replacement
-from random import seed
-from random import sample
-
-
-def randomsimb():
-  # seed random number generator
-  # prepare a sequence
-  sequence = [-3, -1, 1, 3,-3, -1, 1, 3, -3, -1, 1, 3,-3, -1, 1, 3,-3, -1, 1, 3]
-  # select a subset without replacement
-  subset = sample(sequence, 2*k)
-  return np.expand_dims(subset, -1)
-
-# %%
-s = randomsimb()
-print("forma de S",s.shape)
+s = gen_symbols(40,n)
+print("S",s)
+a = np.expand_dims(s[:k,0],-1)
+b = np.expand_dims(s[:k,1],-1)
+print(a.shape)
+print(b.shape)
+# s = np.expand_dims(np.stack((s[:,0].transpose,s[:,1].transpose)),-1)
+s = np.concatenate((a,b))
+print("s ya movida",s.shape)
 
 # s_matrix = np.array([[1, 1],[1, 1]])
 # print(s_matrix)
@@ -76,7 +58,7 @@ print("Matriz H expandida\n",H_expanded)
 # y = H*s+w;
 mu = np.zeros(k)
 sigma = np.ones((k,k))
-snr = 10
+snr = 12
 
 noise = awgn(s,snr)
 # noise = np.random.normal(loc=mu, scale=sigma, size=(k,k)).view(np.complex128)
@@ -154,28 +136,16 @@ print(one.shape)
 W_ED = np.concatenate((W_1113, one))
 print("W_ED\n",W_ED)
 
-# %%
-#quantiz version BT
-def quantiz(entry, symbols):
-    result = np.empty((len(entry),1))
-    for i in range(len(entry)):
-        minimum = float("inf")
-        for val in symbols:
-            if abs(val - entry[i]) < minimum:
-                result[i,0] = val
-                minimum = abs(val - entry[i])
-    return result
-
-# %%
+print("SIMPLE QUANTIZATION\n\n")
 #simple quantization
-
 valores=W[0:2*k,4*k]
+print("valores",valores.shape)
+print("sssssss",s.shape)
 simple_quantiz = quantiz(valores,s)
-print(simple_quantiz)
+print("quantiz simple niño",simple_quantiz.shape)
 
 # %%
 #eigenvalue descomposition
-
 u,S,v=np.linalg.svd(W_ED)#este te calcula svd directamente
 print (W_ED)
 print ("\n")

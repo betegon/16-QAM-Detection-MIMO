@@ -30,7 +30,7 @@ def mapping (decimal_stream):
     """ Mapping decimal numbers to 16-QAM constellation signal.
 
     Args:
-        decimal_stream  (np.array): Decimal numbers to map. 
+        decimal_stream  (np.array): Decimal numbers to map.
 
     Returns:
         input_signal (np.array): Signal to transmit.
@@ -47,9 +47,46 @@ def mapping (decimal_stream):
     for i in range(len(decimal_stream)):
         for key,value in map.items():
             if decimal_stream[i] == int(key):
-                # print("value:   {}".format(value))    
+                # print("value:   {}".format(value))
                 # print("signal:  {}".format(input_signal))
                 # print("sgn[0]:  {}".format(input_signal[0]))
                 input_signal[i] = value
- 
     return input_signal
+
+
+def gen_symbols(nbits,n):
+    """ Generate n^2-QAM symbols
+
+    Args:
+        nbits (int): Number of bits to generate.
+        n     (int): bits per symbol. e.g. n=4 -> 2^4 = 16QAM
+
+    Returns:
+        (np.ndarray): Contains constellation symbols. e.g. [[-1 3],[3, 1]...]
+
+    """
+    binaryDataStream = np.random.randint(2, size=(int(nbits/n),n))
+    decDataStream = binaryDataStream.dot(1 << np.arange(binaryDataStream.shape[-1] -1, -1,-1))
+    return  mapping(decDataStream)
+
+
+def quantiz(entry, symbols):
+    """ Quantize an array from given symbols.
+
+    Args:
+        entry   (np.array): Array of float numbers to quantize.
+        symbols (np.array): Array of quantization values.
+
+    Returns:
+        result (np.array): Array of quantized values.
+    """
+    result = np.empty((len(entry),1))
+    for i in range(len(entry)):
+        minimum = float("inf")
+        for val in symbols:
+            if abs(val - entry[i]) < minimum:
+                result[i,0] = val
+                minimum = abs(val - entry[i])
+    return result
+
+# %%

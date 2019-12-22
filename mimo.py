@@ -13,7 +13,7 @@
 '''
 
 from utils import awgn
-
+from optimization import min_tr_WA
 # %%
 import math
 import numpy as np

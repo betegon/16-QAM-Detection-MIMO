@@ -37,9 +37,11 @@ Solver used for optimization is MOSEK. In order to use it, you will need to requ
 
 `utils.py`  			   - Diverse utils necessary to perform the MIMO detection.
 
-`detection.py`         - Principal detection module.
+`detection.py`                 - Principal detection module.
 
-`remove_comments`   - Script to remove comments from files.
+`remove_comments.py`   - Script to remove comments from files.
+
+`report.pdf`   				 -  Slides explaining the work realized in this repository. Used for class presentation.
 
 
 

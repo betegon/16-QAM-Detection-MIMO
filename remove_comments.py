@@ -30,5 +30,6 @@ def remove_comments(inputFile,outputFile):
                     f.writelines('\n')
     return True
 
+
 if __name__ == '__main__':
     remove_comments('detection.py', 'detection_no_comments.py')

@@ -1,4 +1,4 @@
-def remove_comments(inputFile,outputFile):
+def remove_comments(inputFile, outputFile):
     '''
     Args:
         inputFile  (str): path of the file to remove commments from.
